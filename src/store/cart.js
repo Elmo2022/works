@@ -19,7 +19,8 @@ export const addShopCar = defineStore({
         price:0,
         number:0
       }      
-      state.orderList = [];
+      this.orderList = [];
+      console.log(this)
       this.cartList.forEach(v=>{
         if( this.select.indexOf( v.id )  !=-1 ){
           total.price += v.counter * v.discountPrice;
@@ -43,6 +44,7 @@ export const addShopCar = defineStore({
         this.select.push( v.id );
       })
       this.cartList=list;
+      console.log(this)
     },
     //全选
     all(){

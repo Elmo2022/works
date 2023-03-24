@@ -13,7 +13,7 @@ export function settlement( data ){
 export function alipayOrder( data ){
 	return request({
 		url:'/api/pay/alipay/createOrder',
-		method:"post",
+        method:"post",
 		data
 	})
 }
@@ -22,6 +22,7 @@ export function alipayOrder( data ){
 export function queryAlipay( params ){
 	return request({
 		url:'/api/pay/alipay/queryOrder',
+		method:"get",
 		params
 	})
 }
@@ -31,7 +32,7 @@ export function queryAlipay( params ){
 export function wxpayOrder( data ){
 	return request({
 		url:'/api/pay/wxpay/createOrder',
-		method:"post",
+
 		data
 	})
 }
@@ -40,6 +41,7 @@ export function wxpayOrder( data ){
 export function queryWxpay( params ){
 	return request({
 		url:'/api/pay/wxpay/queryOrder',
+
 		params
 	})
 }

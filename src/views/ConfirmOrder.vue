@@ -27,17 +27,17 @@
                 <div class="choose">
                     <h3>支付方式 <span class="pay">{{ payment.description }}</span></h3>
                     <div class="choosebg">
-                        <span 
+                        <el-button type="primary"
                           v-for='item in payModes'
                           :key='item.code'
                           @click='tabPayment(item)'
-                        >{{ item.description }}</span>
+                        >{{ item.description }}</el-button>
                     </div>
                 </div>
                 <ul class="foot">
                     <li class="foot-item">应付<span class="unique">￥{{ totalPrice }}</span></li>
                     <li>
-                        <button class="btn" @click='goPayment'>确认订单</button>
+                        <button class="btn" @click='goPayment'>确认支付</button>
                     </li>
                 </ul>
             </div>
@@ -65,17 +65,18 @@ import Foot from '../components/common/Foot.vue'
 
 //pinia
 import { storeToRefs } from 'pinia';
-import { useCartStore } from '..cart'
+//import { addShopCar} from '../utils/api/cart'
 
 //element
 import { ElMessageBox } from 'element-plus';
-import { ElMessage } from 'element-plus';
+import { ElMessage  } from 'element-plus';
 //api
 import { settlement , alipayOrder , queryAlipay ,wxpayOrder , queryWxpay} from '../utils/api/order'
 
 import { deleteShopCars } from '../utils/api/cart'
 import { createToken } from '../utils/api/createToken'
-let cartStore = useCartStore();
+import {  addShopCar } from '../store/cart'
+let cartStore = addShopCar();
 //dialog
 const dialogVisible = ref(false);
 //结算的商品数据
@@ -98,10 +99,13 @@ let timer = ref('');
 let router = useRouter();
 //生命周期
 onBeforeMount(()=>{
+  
   settlement(cartStore.orderList).then(res=>{
-    courses.value = res.data.courses;
     totalPrice.value = res.data.totalPrice;
+    courses.value = res.data.courses;
     payModes.value = res.data.payModes;
+    console.log(courses)
+    console.log( res )
   })
 })
 
@@ -116,6 +120,7 @@ const tabPayment = (item)=>{
       payModes:item.code
     }).then(res=>{
       payurl.value = res.data.payurl;
+      console.log(payurl)
       orderNumber.value = res.data.orderNumber;
     })
   }else{
@@ -134,7 +139,7 @@ const interPaymentAli = ()=>{
   queryAlipay({
     orderNumber:orderNumber.value
   }).then(res=>{
-    console.log( res );
+  
     if( res.meta.code=='200' ){
       clearInterval( timer.value );
       ElMessage.success({
@@ -154,15 +159,16 @@ const interPaymentAli = ()=>{
 
 //查询订单状态[微信]
 const interPaymentWx = ()=>{
-  queryAlipay({
+  queryWxpay({
     orderNumber:orderNumber.value
   }).then(res=>{
-    console.log( res );
+  
     if( res.meta.code=='200' ){
       clearInterval( timer.value );
       ElMessage.success({
         message: '支付成功!'
       });
+   
       //跳转页面
       router.push({
         name:'Home'
@@ -178,16 +184,18 @@ const interPaymentWx = ()=>{
 //确认订单
 const goPayment = ()=>{
   if( payment.code =='alipayment' ){
-    timer.value = setInterval( interPaymentAli , 2000 );
+    console.log("支付宝");
+timer.value = setInterval( interPaymentAli , 2000 );
+   console.log(5555555);
   }else{
+    console.log("微信");
     timer.value = setInterval( interPaymentWx , 2000 );
   }
   dialogVisible.value = true;
 }
 
 </script>
-
-<style lang="scss" scoped>
+<style  scoped>
 .finish{
   width: 170px;
 
@@ -213,7 +221,7 @@ const goPayment = ()=>{
   border-radius: 8px;
 
 }
->>>.el-dialog {
+.el-dialog {
     text-align: center !important;
     border-radius: 10px!important;
 }

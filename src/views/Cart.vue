@@ -74,22 +74,22 @@
 import Header from '../components/common/Header.vue'
 import Foot from '../components/common/Foot.vue'
 //api
-import { getShopCarList , deleteShopCar  } from '../../utils/api/cart'
-import { createToken } from '../../utils/api/createToken'
+import { getShopCarList , deleteShopCar  } from '../utils/api/cart'
+import { createToken } from '../utils/api/createToken'
 //pinia
 import { storeToRefs } from 'pinia';
-import { useCartStore } from '../../store/cart'
-
+import { addShopCar } from '../store/cart'
 
 //element
 import { ElMessageBox } from 'element-plus';
 import { ElMessage } from 'element-plus';
-let cartStore = useCartStore();
+let cartStore = addShopCar();
 let { cartList , isChecked , total  } = storeToRefs( cartStore );
 //生命周期
 onBeforeMount(()=>{
   getShopCarList().then(res=>{
     cartStore.addCart( res.data.list );
+    console.log(res)
   })
 })
 

@@ -133,7 +133,8 @@ import { ElMessage } from 'element-plus';
 
 //pinia
 import { useUserStore } from '../store/user'
-import { addShopCar } from '../store/cart'
+//import { addShopCar } from '../store/cart'
+import { addShopCar } from '../utils/api/cart'
 import { createToken } from '../utils/api/createToken'
 //router
 let router = useRouter();
@@ -239,6 +240,7 @@ const goPlay = ( item , chapterId )=>{
 
 //加入购物车
 const addCart = ()=>{
+  console.log(111111)
   createToken().then(res=>{
     let token = res.data.token;
     addShopCar({

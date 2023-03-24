@@ -8,7 +8,7 @@
 	                    <img src="../assets/img/logo02.png" alt="小鹿线" title="小鹿线">
 	                </a>
 	                <div class="left-qrcode">
-	                    <div id="qrcode" title="小鹿线"><canvas width="180" height="180" style="display: none;"></canvas><img src="../assets/img/login.jpg" style="display: block;"></div>
+	                    <div id="qrcode" title="小鹿线"><canvas width="180" height="180" style="display: none;"></canvas><img src="../assets/img/qrlogo.png" style="display: block;"></div>
 	                    <div class="qrcode-text">扫码登录</div>
 	                </div>
 	                <div class="quick-login">快捷登录</div>
@@ -284,12 +284,13 @@ const phoneBtn = (formEl) => {
 }
 </script>
 
-<style scoped>
+<style  scoped>
 .container{
 	position: relative;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     background: url(../assets/img/loginbg.jpeg) no-repeat center;
+    display: flex;
 }
 section{
 	position: absolute;
@@ -522,40 +523,41 @@ section{
     padding: 10px;
 }
 .qq-wx-wb .qq-login{
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    
     overflow: hidden;
     font-size: 18px;
     text-align: center;
     line-height: 30px;
-    background: #e5ffe1;
+    background: url(../assets/img/weibo.png);
 }
 .qq-wx-wb .qq-login a{
     color:  #368afe;
 }
 .qq-wx-wb .wx-login{
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+  
     overflow: hidden;
     font-size: 18px;
     text-align: center;
     line-height: 30px;
-    background: #e5ffe1;
+   
+    background: url(../assets/img/wx.png);
 }
 .qq-wx-wb .wx-login a{
     color: #09bb07;
 }
 .qq-wx-wb .weibo-login{
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+
     overflow: hidden;
     font-size: 18px;
     text-align: center;
     line-height: 30px;
-    background: #e5ffe1;
+    background: url(../assets/img/QQ.png);
 }
 .qq-wx-wb .weibo-login a{
     color: #d81e06;
